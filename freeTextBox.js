@@ -3,14 +3,26 @@ const district = document.querySelector('#district');
 const address = document.querySelector('#address');
 const form = document.querySelector('#form');
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async(e) => {
     e.preventDefault();
     if (!validateInputs()) return;
 
-    alert("Form submitted successfully!");
+    // Collect form data
+    const formData = new FormData(form);
+
+    // Send data via POST
+    const result = await fetch('freeTextBox.php', {
+        method: 'POST',
+        body: formData
+    });
+
+    const response = await result.text();
+    console.log(response);
+
     form.reset();
     clearSuccessStates();
 });
+
 
 // validate the inputs on events
 state.addEventListener('change', () => {

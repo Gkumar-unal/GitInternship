@@ -2,16 +2,18 @@
 // Connect
 require_once 'database.php';
 
-$state = $_POST["state"] ?? '';
-$district = $_POST["district"] ?? '';
-$address = $_POST["address"] ?? ''; 
+$state =trim($_POST["state"] ?? '');
+$district = trim($_POST["district"] ?? '');
+$address = trim($_POST["address"] ?? ''); 
+ 
+echo('1'.$state.$district.$address);
 
     $stmt = $conn->prepare("
     INSERT INTO freetextBox (
         state,district,address
     ) VALUES (?, ?, ?)");
 
-    $stmt->bind_param("sssssssss", $state, $district, $address);
+    $stmt->bind_param("sss", $state, $district, $address);
 
     if ($stmt->execute()) {
         echo "Form submitted successfully!";
